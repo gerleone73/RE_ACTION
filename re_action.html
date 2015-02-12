@@ -6,6 +6,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1" />
 
         <link rel="stylesheet" type="text/css" href="css/style.css">
+        <link href="font_awesome/css/font-awesome.min.css" rel="stylesheet">
 
         <script src="http://code.jquery.com/jquery.min.js"></script>
         <script type="text/javascript" src="js/app.js"></script>
@@ -26,7 +27,8 @@
   
            <p>
            <ul>
-            <li>Reset the game</li>
+            <li>Double click 'Re_set_start button' to reset the game</li>
+            <li>Click 'Re_set_start button' to start the game</li>
             <li>If reaction time <span class= "underline">less than 1 second</span> you are in the groove.</li>
              <li>If reaction time <span class ="underline">more than 1 second but less than 1.25</span> seconds you need to up the tempo.</li>
             <li>If reaction time <span class ="underline">more 1.25 or more</span> then you are way too slow.</li>
@@ -42,9 +44,9 @@
   
   <div id ="container">
 
-  <audio src="sounds/09 Skidozer 301.mp3" id="sound1"></audio>
-  <audio src="sounds/04 Death By Drowning.mp3" id="sound2"></audio>
-  <audio src="sounds/07 Mimi.mp3" id="sound3"></audio>
+  <audio src="sounds/09 Skidozer 301.mp3" id="sound1" class ="sound"></audio>
+  <audio src="sounds/04 Death By Drowning.mp3" id="sound2" class ="sound">></audio>
+  <audio src="sounds/07 Mimi.mp3" id="sound3" class ="sound">></audio>
  
 
     <div id ="info">
@@ -58,7 +60,9 @@
         
       
     </div>
-    <input type="button" value="Reset" id="reset">
+    <input type="button" value="Re_set_start" id="reset">
+
+    <i class="fa fa-toggle-off">Sound ON/OFF</i>
         
     <div id="screen">
     
@@ -76,6 +80,9 @@
                   var createdTime;
 
                   var reactionTime;
+
+
+                  document.getElementById('reset').onclick=function(){
 
 
 
@@ -149,7 +156,7 @@
                       */
 
                     
-
+            
               
 
             if (reactionTime >= 1.25){
@@ -204,9 +211,12 @@
 
            makeShape();
 
-           document.getElementById('reset').onclick=function()
+         }
+
+          document.getElementById('reset').ondblclick=function()
     {
       window.location.reload();// window refresh for new game to start, so all variables become default.
+      
     }
 
 
