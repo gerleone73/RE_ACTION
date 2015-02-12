@@ -1,0 +1,215 @@
+<!doctype html> <html>
+    <head>
+        <title>Reaction</title>
+        <meta charset="utf-8" />
+        <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+        <link rel="stylesheet" type="text/css" href="css/style.css">
+        <script type="text/javascript" src="js/app.js"></script>
+
+        <link href='http://fonts.googleapis.com/css?family=Lato:400,700' rel='stylesheet' type='text/css'>
+
+        <script src="http://code.jquery.com/jquery.min.js"></script>
+
+
+ 
+</head>
+<body id="bg">
+
+
+    <!-- Modal Information Box -->
+     <div class="overlay" id="modal">
+      <div class="content">
+        <h3>What do I do?</h3>
+        <div>
+           <p>The game goes like this: </p>
+           <ul>
+            <li>1. If reaction time <strong> less than 1 second</strong> you are in the groove.</li>
+             <li>2. If reaction time <strong> more than 1 second but less than 1.25 seconds</strong> you need to up the tempo.</li>
+            <li>3. If reaction time <strong> more 1.25 or more</strong> then you are way too slow.</li>
+           </ul>
+           <p>So, Are you ready?</p>
+          <a class="close" href="#">Got It!</a>
+        </div>
+       </div>
+     </div>
+
+  
+  <div id ="container">
+
+  <audio src="sounds/09 Skidozer 301.mp3" id="sound1"></audio>
+  <audio src="sounds/04 Death By Drowning.mp3" id="sound2"></audio>
+  <audio src="sounds/07 Mimi.mp3" id="sound3"></audio>
+ 
+
+    <div id ="info">
+      <h1>GROOVEMASTER RE_ACTION</h1>
+
+      <h3><a class="what" href="#">What ?</a></h3>
+      
+        <h3 class="normal">CLICK ON SHAPES AS FAST AS YOU CAN!</h3>
+        <h1 id="slow">GET INTO THE GROOVE</h1>
+        <h2 id="timer">TIME = <span id="time">0.0000</span></h2>
+        
+      
+    </div>
+    <input type="button" value="Reset" id="reset">
+        
+    <div id="screen">
+    
+
+    <div id="shape1" class=""></div>
+
+    </div>
+ 
+  </div>
+
+  <script type="text/javascript">
+
+         var clickedTime;
+
+                  var createdTime;
+
+                  var reactionTime;
+
+
+
+                       function makeShape() {
+
+
+
+
+
+                           
+                                 var time=Math.random()*3000;
+
+                    
+
+                                  setTimeout(function(){
+
+                                      if (Math.random()>0.5) {
+                                           document.getElementById("shape1").style.borderRadius="100%";
+                                      }else{
+                                         document.getElementById("shape1").style.borderRadius="0";
+                                      }
+
+                                          function getRandomColor() {
+                                        var r = function(){
+                                        return Math.floor(Math.random()*255) 
+                                        };
+
+                                        return 'rgb(' + r() + "," + r() + "," + r() + ')';
+
+                                      }
+                                  
+
+                                  
+
+                                    document.getElementById("shape1").style.top = String(Math.floor(Math.random()*500)) + "px";
+
+                                    document.getElementById("shape1").style.left = String(Math.floor(Math.random()*800)) + "px";
+
+                                  var width = document.getElementById("shape1").style.width = String(Math.floor(Math.random()*80)+15) + "px";
+
+                                  document.getElementById("shape1").style.height = width;
+
+                                    document.getElementById("shape1").style.backgroundColor=getRandomColor();
+                                     document.getElementById("bg").style.backgroundColor=getRandomColor();
+                                    
+                                    document.getElementById("shape1").style.display="block";
+
+                                    createdTime=Date.now();
+
+
+                                }, time);
+
+                            }
+
+
+                  document.getElementById("shape1").onclick=function(){
+
+                    clickedTime=Date.now();
+
+                    reactionTime=(clickedTime - createdTime)/1000;
+
+                     document.getElementById("time").innerHTML=reactionTime;
+
+                     
+                   /*  var audio1 = document.getElementById('sound1');
+                      var audio2 = document.getElementById('sound2');
+                      var audio3 = document.getElementById('sound3');
+
+
+
+                      */
+
+                    
+
+              
+
+            if (reactionTime >= 1.25){
+                    document.getElementById("slow").innerHTML="WAY TOO SLOW!!";
+                      document.getElementById("sound1").currentTime = 0;
+                        document.getElementById("sound1").play();
+                        document.getElementById("sound2").pause();
+                        sound2.currentTime = 0;
+                        document.getElementById("sound3").pause();
+                        sound3.currentTime = 0;
+                  
+                      
+                     }else if(reactionTime > 1 && reactionTime<1.25){
+                      document.getElementById("slow").innerHTML="UP THE TEMPO!!";
+                      document.getElementById("sound2").currentTime = 0;
+                      document.getElementById("sound2").play();
+
+                      document.getElementById("sound1").pause();
+                      sound1.currentTime = 0;
+                        document.getElementById("sound3").pause();
+                        sound3.currentTime = 0;
+
+                     
+                     }else{
+                      document.getElementById("slow").innerHTML="NOW WE'RE GROOVIN!!";
+                      document.getElementById("sound3").currentTime = 0;
+                      document.getElementById("sound3").play();
+                      document.getElementById("sound1").pause();
+                      sound1.currentTime = 0;
+                        document.getElementById("sound2").pause();
+                        sound2.currentTime = 0;
+
+
+               
+                    
+        
+
+                     }
+
+
+
+                    this.style.display="none";
+
+
+                  
+
+
+                    makeShape();
+                  }
+
+                    
+
+           makeShape();
+
+           document.getElementById('reset').onclick=function()
+    {
+      window.location.reload();// window refresh for new game to start, so all variables become default.
+    }
+
+
+  </script>
+      
+
+ 
+
+</body>
+</html>
