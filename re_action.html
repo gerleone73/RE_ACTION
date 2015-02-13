@@ -20,26 +20,7 @@
 <body id="bg">
 
 
-    <!-- Modal Information Box -->
-     <div class="overlay" id="modal">
-      <div class="content">
-        <h3>How to play?</h3>
   
-           <p>
-           <ul>
-            <li>Double click 'Re_set_start button' to reset the game</li>
-            <li>Click 'Re_set_start button' to start the game</li>
-            <li>If reaction time <span class= "underline">less than 1 second</span> you are in the groove.</li>
-             <li>If reaction time <span class ="underline">more than 1 second but less than 1.25</span> seconds you need to up the tempo.</li>
-            <li>If reaction time <span class ="underline">more 1.25 or more</span> then you are way too slow.</li>
-            <li>So, Are you ready?</li>
-           </ul>
-           </p>
-           
-          <h3><a class="close" href="#">LET'S PLAY!</a></h3>
-      
-       </div>
-     </div>
 
   
   <div id ="container">
@@ -56,15 +37,40 @@
       
         <h3 class="normal">CLICK ON SHAPES AS FAST AS YOU CAN!</h3>
         <h1 id="slow">GET INTO THE GROOVE</h1>
-        <h2 id="timer">TIME = <span id="time">0.0000</span></h2>
-        
+        <ul id="timer">
+        <li><h3>TIME = <span id="time">0.0000</span></h3></li>
+        <li><h3>CLICKS = <span id="clks">0</span></h3></li>
+        <li><h3>GROOVES = <span id="grooves">0</span></h3></li>
+        <li><h3>PERCENT = <span id ="score">0% </span></h3><li>
+        </ul>
       
     </div>
     <input type="button" value="Re_set_start" id="reset">
 
-    <i class="fa fa-toggle-off">Sound ON/OFF</i>
+    
         
     <div id="screen">
+
+      <!-- Modal Information Box -->
+     <div class="overlay" id="modal">
+      <div class="content">
+        <h3>How to play?</h3>
+  
+           <p>
+           <ul>
+            <li>Double click 'Re_set_start button' to reset the game</li>
+            <li>Click 'Re_set_start button' to start the game</li>
+            <li>If reaction time <span class= "underline">less than 1.1 second</span> you are in the groove and your groove score and grooves to clicks percentage increases</li>
+             <li>If reaction time <span class ="underline">more than 1.1 second but less than 1.25</span> seconds you need to find da groove. No groove score.</li>
+            <li>If reaction time <span class ="underline">more 1.25 or more</span> you are losin ya groove, and your grrove score and precentage decreases.</li>
+            <li>So, Are you ready to groove?</li>
+           </ul>
+           </p>
+           
+          <h3><a class="close" href="#">LET'S PLAY!</a></h3>
+      
+       </div>
+     </div>
     
 
     <div id="shape1" class=""></div>
@@ -75,42 +81,62 @@
 
   <script type="text/javascript">
          var clickedTime;
-                  var createdTime;
-                  var reactionTime;
-                  document.getElementById('reset').onclick=function(){
-                       function makeShape() {
+         var createdTime;
+         var reactionTime;
+         var daFunk;
+         var grooveScore =0;
+         var clicks =0;
+         var grooves=0;
+
+
+         document.getElementById('reset').onclick=function(){
+                       
+            function makeShape() {
+
+              
                            
-                                 var time=Math.random()*3000;
+                var time=Math.random()*3000;
                     
-                                  setTimeout(function(){
-                                      if (Math.random()>0.5) {
-                                           document.getElementById("shape1").style.borderRadius="100%";
-                                      }else{
-                                         document.getElementById("shape1").style.borderRadius="0";
-                                      }
-                                          function getRandomColor() {
-                                        var r = function(){
-                                        return Math.floor(Math.random()*255) 
-                                        };
-                                        return 'rgb(' + r() + "," + r() + "," + r() + ')';
-                                      }
+                      setTimeout(function(){
+                          if (Math.random()>0.5) {
+                              document.getElementById("shape1").style.borderRadius="100%";
+                          }else{
+                          document.getElementById("shape1").style.borderRadius="0";
+                          }
+                          
+                          function getRandomColor() {
+                          var r = function(){
+                              return Math.floor(Math.random()*255) 
+                                };
+                                return 'rgb(' + r() + "," + r() + "," + r() + ')';
+                                }
                                   
                                   
-                                    document.getElementById("shape1").style.top = String(Math.floor(Math.random()*500)) + "px";
-                                    document.getElementById("shape1").style.left = String(Math.floor(Math.random()*800)) + "px";
-                                  var width = document.getElementById("shape1").style.width = String(Math.floor(Math.random()*80)+15) + "px";
-                                  document.getElementById("shape1").style.height = width;
-                                    document.getElementById("shape1").style.backgroundColor=getRandomColor();
-                                     document.getElementById("bg").style.backgroundColor=getRandomColor();
+                            document.getElementById("shape1").style.top 
+                            = String(Math.floor(Math.random()*500)) + "px";
+
+                            document.getElementById("shape1").style.left 
+                            = String(Math.floor(Math.random()*800)) + "px";
+                            
+                            var width = document.getElementById("shape1").style.width 
+                            = String(Math.floor(Math.random()*80)+15) + "px";
+
+                            document.getElementById("shape1").style.height = width;
+                            document.getElementById("shape1").style.backgroundColor=getRandomColor();
+                            document.getElementById("bg").style.backgroundColor=getRandomColor();
                                     
-                                    document.getElementById("shape1").style.display="block";
-                                    createdTime=Date.now();
+                            document.getElementById("shape1").style.display="block";
+                            createdTime=Date.now();
                                 }, time);
                             }
-                  document.getElementById("shape1").onclick=function(){
+
+                    document.getElementById("shape1").onclick=function(){
                     clickedTime=Date.now();
                     reactionTime=(clickedTime - createdTime)/1000;
                      document.getElementById("time").innerHTML=reactionTime;
+                     clicks++;
+
+                     
                      
                    /*  var audio1 = document.getElementById('sound1');
                       var audio2 = document.getElementById('sound2');
@@ -119,24 +145,28 @@
                     
             
               
-            if (reactionTime >= 1.25){
-                    document.getElementById("slow").innerHTML="WAY TOO SLOW!!";
-                      document.getElementById("sound1").currentTime = 0;
+                    if (reactionTime >= 1.5){
+                        document.getElementById("slow").innerHTML="LOSIN' DA GROOVE!!";
+                        document.getElementById("sound1").currentTime = 0;
                         document.getElementById("sound1").play();
                         document.getElementById("sound2").pause();
                         sound2.currentTime = 0;
                         document.getElementById("sound3").pause();
                         sound3.currentTime = 0;
+
+                        grooveScore--
                   
                       
-                     }else if(reactionTime > 1 && reactionTime<1.25){
-                      document.getElementById("slow").innerHTML="UP THE TEMPO!!";
+                     }else if(reactionTime > 1.1 && reactionTime<1.5){
+                      document.getElementById("slow").innerHTML="FIND DA GROOVE!!";
                       document.getElementById("sound2").currentTime = 0;
                       document.getElementById("sound2").play();
                       document.getElementById("sound1").pause();
                       sound1.currentTime = 0;
                         document.getElementById("sound3").pause();
                         sound3.currentTime = 0;
+
+                  
                      
                      }else{
                       document.getElementById("slow").innerHTML="NOW WE'RE GROOVIN!!";
@@ -146,10 +176,19 @@
                       sound1.currentTime = 0;
                         document.getElementById("sound2").pause();
                         sound2.currentTime = 0;
-               
-                    
-        
+
+                        grooveScore++;
                      }
+
+                      document.getElementById("score").innerHTML=grooveScore;
+
+
+                      daFunk=(grooveScore/clicks)*100;
+                     document.getElementById("score").innerHTML= Math.floor(daFunk) + "%";
+                     document.getElementById("clks").innerHTML= clicks;
+                     document.getElementById("grooves").innerHTML= grooveScore;
+
+
                     this.style.display="none";
                   
                     makeShape();
